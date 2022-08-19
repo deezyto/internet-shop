@@ -21,7 +21,7 @@ gulp.task('server', function() {
 
 //створюєм задачу по компіляції стилів sass в css
 gulp.task('styles', function() {
-  return gulp.src('src/sass/*.+(scss|sass)') //берем файли sass або scss
+  return gulp.src('src/scss/*.+(scss|sass)') //берем файли sass або scss
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError)) //компілюєм в css і одночасно оптимізовуєм
     .pipe(rename({ //після компіляції файла переіменовуєм його (щоб він не заміщував файл style.css)
       prefix: '',
@@ -41,7 +41,7 @@ gulp.task('styles', function() {
 
 //включаєм слідкування gulp за оновленням файлів
 gulp.task('watch', function() {
-  gulp.watch('./src/sass/**/*.+(scss|sass|css)', gulp.parallel('styles'));
+  gulp.watch('./src/scss/**/*.+(scss|sass|css)', gulp.parallel('styles'));
   gulp.watch('src/**/*.html').on('change', gulp.parallel('html'));
   //слідимо за любими js файлами, файлами fonts, icons, img
   //change - слідить за зміною файла, all - слідить за всім (за добавленням файлів в папку і тд)

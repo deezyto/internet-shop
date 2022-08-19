@@ -1,0 +1,15 @@
+@import 'variables.scss';
+@import 'section/section.scss';
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 1500px;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+}
