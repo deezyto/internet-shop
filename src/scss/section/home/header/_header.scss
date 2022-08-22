@@ -108,4 +108,50 @@ header {
         }
 
     }
+
+
+    nav {
+        ul {
+            display: flex;
+            justify-content: space-between;
+            list-style-type: none;
+            width: 100%;
+            li {
+                a {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    text-decoration: none;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 143%;
+                    color: #787885;
+                    &.active {
+                        color: #2979FF;
+                        svg {
+                            path {
+                                fill: #2979FF;
+                            }
+                        }
+                    }
+                    svg {
+                        width: 20px;
+                        margin-bottom: 4px;
+                    }
+                }
+                &.active, &:hover {
+                    a {
+                        color: #2979FF;
+                        svg {
+                            path {
+                                fill: #2979FF;
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
 }
