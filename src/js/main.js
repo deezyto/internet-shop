@@ -15,4 +15,11 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  const item = document.querySelector('.content .item');
+  console.log(item.parentNode)
+  for (let i = 0; i < 20; i++) {
+    const cloneNode = item.cloneNode(true);
+    item.parentNode.append(cloneNode);
+  }
 });

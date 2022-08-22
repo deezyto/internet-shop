@@ -6,7 +6,7 @@
         column-gap: 24px;
     }
     .sidebar {
-        width: 354px;
+        min-width: 354px;
     }
 
     .content {
@@ -16,6 +16,9 @@
         border-radius: 8px;
     }
     .sort-items {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-bottom: 42px;
     }
     .sort-tab {
@@ -121,10 +124,53 @@
             }
         }
     }
+    .filter {
+        display: flex;
+        column-gap: 24px;
+    }
+    .show, .style-view {
+        display: inline-block;
+        background: rgb(235, 242, 255);
+        border-radius: 5px;
+        button {
+            border-radius: 5px;
+            border: none;
+            padding: 5px 14px;
+            background: transparent;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 143%;
+            color: #5A5B6A;
+            cursor: pointer;
+            &.active {
+                font-weight: 500;
+                color: #2264D1;
+                box-shadow: 0px 1px 2px rgba(27, 78, 163, 0.24), 0px 2px 4px rgba(41, 121, 255, 0.24);
+                background: white;
+            }
+        }
+    }
+    .style-view {
+        display: flex;
+        button {
+            display: flex;
+            align-items: center;
+            padding: 5px 20px;
+        }
+    }
+    .items {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        margin-top: 15px;
+        column-gap: 15px;
+        row-gap: 15px;
+    }
     .item {
-        width: 25%;
+        width: 23.9%;
         padding: 15px;
-        &.active {
+        cursor: pointer;
+        &:hover {
             box-shadow: 0px 2px 4px rgba(59, 69, 123, 0.2), 0px 4px 8px rgba(92, 107, 192, 0.2);
             border-radius: 8px;
         }
@@ -161,16 +207,71 @@
             font-size: 14px;
             line-height: 143%;
             color: #787885;
-            margin-top: 18px;
+            margin-top: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            min-height: 42px;
+            span {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 22px;
+                color: #787885;
+                display: block;
+            }
         }
         .info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 18px;
-        }
-        .number {
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 22px;
-            color: #5E6366;
+            .rating {
+                display: flex;
+                align-items: center;
+                column-gap: 8px;
+                .star {
+                    display: flex;
+                    align-items: center;
+                    column-gap: 2px;
+                    svg {
+                        cursor: pointer;
+                    }
+                }
+                .number {
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 22px;
+                    color: #5E6366;
+                }
+            }
+            .watch {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 143%;
+                color: #2264D1;
+                padding: 4px 12px 4px 30px;
+                border: 1px solid #2264D1;
+                border-radius: 5px;
+                background: transparent;
+                position: relative;
+                cursor: pointer;
+                &:before {
+                    content: '';
+                    width: 14px;
+                    height: 14px;
+                    position: absolute;
+                    left: 7px;
+                    top: 7px;
+                    display: block;
+                    background: url('../icons/content/Left.svg') center no-repeat;
+                }
+                &:hover {
+                    &:before {
+                        background: url('../icons/content/Left-fill.svg') center no-repeat;
+                    }
+                }
+            }
         }
         img {
             max-width: 227px;
