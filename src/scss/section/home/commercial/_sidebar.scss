@@ -1,12 +1,12 @@
 .commercial {
     .sidebar {
         min-width: 354px;
+        padding-right: 50px;
         .title {
             padding: 10px 55px 10px 90px;
             border: 1px solid #9DC2FF;
             border-radius: 8px;
             position: relative;
-            display: inline-block;
             h2 {
                 font-weight: 700;
                 font-size: 24px;
@@ -74,6 +74,7 @@
         .expand {
             padding: 12px;
             margin-left: 8px;
+            margin-bottom: 32px;
         }
 
         .category-parent, .category-name {
@@ -122,5 +123,106 @@
                 font-weight: 400;
             }
         }
+    }
+    .sidebar-filter {
+        box-shadow: 0px 1px 2px rgba(58, 58, 68, 0.24), 0px 2px 4px rgba(90, 91, 106, 0.24);
+        border-radius: 4px;
+        padding: 10px 0 10px 8px;
+        position: relative;
+        span {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            color: #19191D;
+            cursor: pointer;
+        }
+        &.hide {
+            visibility: hidden;
+            overflow: hidden;
+        }
+    }
+    .sidebar-filter, .sidebar-filter-options {
+        &:before {
+            content: '';
+                border: solid #2264D1;
+                border-width: 0 2px 2px 0;
+                display: inline-block;
+                padding: 3px;
+                transform: rotate(45deg);
+                position: absolute;
+                right: 20px;
+                top: 15px;
+                width: 2px;
+                height: 2px;
+        }
+    }
+
+    .sidebar-filter-options {
+        visibility: hidden;
+        position: relative;
+        height: 0;
+        &.active {
+            visibility: visible;
+            height: 100%;
+            border-radius: 4px;
+            background: rgb(247, 247, 250);
+            padding-bottom: 15px;
+            span {
+                position: relative;
+                display: inline-block;
+                padding: 8px 0 0 12px;
+                margin-bottom: 20px;
+                font-weight: 500;
+                line-height: 150%;
+            }
+            .sidebar-filter-option {
+                display: flex;
+                justify-content: flex-start;
+                column-gap: 15px;
+                padding-left: 15px;
+                margin-bottom: 20px;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                cursor: pointer;
+                input[type=checkbox], input[type=radio] {
+                    appearance: none;
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 2px;
+                    margin-left: 3px;
+                    border: 2px solid #4A4B57;
+                    cursor: pointer;
+                }
+                input[type=checkbox]:checked, input[type=radio]:checked {
+                    appearance: none;
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 2px;
+                    margin-left: 3px;
+                    background: #2e75e8;
+                    border: 2px solid #2e75e8;
+                    cursor: pointer;
+                }
+            }
+        }
+        &:before {
+            content: '';
+                border-color: #4A4B57;
+                transform: rotate(-135deg);
+        }
+    }
+
+    .hide {
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    .active {
+        visibility: visible;
+        height: 100%;
     }
 }
