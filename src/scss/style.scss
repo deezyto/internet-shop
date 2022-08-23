@@ -1,15 +1,5 @@
+@import 'libs/normalize.scss';
+@import 'base.scss';
 @import 'variables.scss';
 @import 'section/section.scss';
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 1492px;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-}
+@import 'fonts.scss';
