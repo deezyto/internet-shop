@@ -24,61 +24,55 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   const menuButton = document.querySelectorAll('.category-parent');
+  const showMore = document.querySelectorAll('.show-more');
   const categoryLink = document.querySelector('.category-link');
+  const filter = document.querySelectorAll('.sidebar-filter');
 
   
-  function hideMenuLink() {
-    menuButton.forEach((button, index) => {
-      if (index === 0) {
-        //button.classList.add('active');
-      } else {
+  function hideMenuLink(selector, first = true) {
+    document.querySelectorAll(selector).forEach((button, index) => {
+      if (index !== 0 && first) {
         button.classList.add('hide');
-      }
-     
-      if (button.nextSibling) {
-        if (button.nextSibling.className === 'category-link') {
-          //button.nextSibling.classList.add('hide');
-        }
+      } 
+      if (!first) {
+        button.classList.add('hide');
       }
     });
   }
 
   function showMenuLink(index, e) {
-    //якщо клікнули має добавитись клас активності (і видались клас hide) єлементу на який клікнули
-    //і на його наступний єлемент
-    //якщо в його наступного єлемента є клас category-link то і йому добавити
-    try {
-      if (!menuButton[index].classList.contains('hide')) {
-        menuButton[index + 1].classList.add('active')
-        console.log(menuButton[index].children, 'menu');
-      } else {
-        menuButton[index].classList.remove('atctive')
-        menuButton[index].classList.remove('hide')
-      }
-    } catch {}
 
-    /* if (e.nextSibling) {
-      if (e.nextSibling.className === 'category-link') {
-        e.nextSibling.classList.remove('hide');
-      }
-    } */
-    console.log(menuButton[index].parentNode.querySelectorAll('ul'))
     const parent = menuButton[index].nextSibling.querySelectorAll('li');
-    console.log(parent, 'next')
+
     const parentFilter = Array.from(parent).filter(node => {
-      //console.log(node)
       return node.getAttribute('data-category') === menuButton[index].getAttribute('data-category');
     });
 
     console.log(parentFilter)
-    parentFilter.forEach(li => {
-      li.querySelector('.category-parent').classList.remove('hide');
+    parentFilter.forEach((li, item) => {
+      if (!li.querySelector('.category-parent').classList.contains('hide')) {
+        li.querySelectorAll('.category-parent').forEach(node => {
+          node.classList.remove('active');
+          node.classList.add('hide');
+        })
+        
+        menuButton[index].classList.remove('active');
+        hideMenuLink('.category-link', false);
+      } else {
+        if (item < 5) {
+          try {
+            if (menuButton[index].nextSibling.classList.contains('category-link')) {
+              console.log(menuButton[index].nextSibling.classList.remove('hide'))
+            }
+          } catch {
 
-      if (li.querySelector('.category-link').getAttribute('data-category') === menuButton[index].getAttribute('data-category')) {
-        li.querySelector('.category-link').classList.remove('hide');
+          }
+          
+          li.querySelector('.category-parent').classList.remove('hide');
+          menuButton[index].classList.add('active');
+        }
       }
       
-      //if (li.nextSibling.className === 'category-link')
     });
     
   }
@@ -93,7 +87,30 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  hideMenuLink();
+  function triggersFilter(selector) {
+    document.querySelectorAll(selector).forEach((item, index) => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log(e.target)
+
+        try {
+          item.classList.toggle('hide');
+          item.nextSibling.classList.toggle('hide');
+          item.nextSibling.classList.toggle('active');
+        } catch {
+          item.previousElementSibling.classList.toggle('hide');
+          item.classList.toggle('active');
+        }
+      })
+    });
+  }
+
+
+  hideMenuLink('.category-parent')
+  hideMenuLink('.category-link', false);
   triggersMenu();
+  hideMenuLink('.sidebar-filter-options', false);
+  triggersFilter('.sidebar-filter');
+  triggersFilter('.sidebar-filter-options');
   
 });
