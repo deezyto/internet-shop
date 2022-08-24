@@ -30,22 +30,31 @@ window.addEventListener('DOMContentLoaded', () => {
   function hideMenuLink() {
     menuButton.forEach((button, index) => {
       if (index === 0) {
-        button.classList.add('active');
+        //button.classList.add('active');
       } else {
         button.classList.add('hide');
       }
      
       if (button.nextSibling) {
         if (button.nextSibling.className === 'category-link') {
-          button.nextSibling.classList.add('hide');
+          //button.nextSibling.classList.add('hide');
         }
       }
     });
   }
 
   function showMenuLink(index, e) {
+    //якщо клікнули має добавитись клас активності (і видались клас hide) єлементу на який клікнули
+    //і на його наступний єлемент
+    //якщо в його наступного єлемента є клас category-link то і йому добавити
     try {
-      menuButton[index + 1].classList.toggle('hide');
+      if (!menuButton[index].classList.contains('hide')) {
+        menuButton[index + 1].classList.add('active')
+        console.log(menuButton[index].children, 'menu');
+      } else {
+        menuButton[index].classList.remove('atctive')
+        menuButton[index].classList.remove('hide')
+      }
     } catch {}
 
     /* if (e.nextSibling) {
@@ -53,12 +62,25 @@ window.addEventListener('DOMContentLoaded', () => {
         e.nextSibling.classList.remove('hide');
       }
     } */
-    console.log(menuButton[index].parentNode.parentNode.children)
-    if (menuButton[index].nextSibling) {
-      if (menuButton[index].nextSibling.classList.contains('category-link')) {
-        menuButton[index].nextSibling.classList.toggle('hide');
+    console.log(menuButton[index].parentNode.querySelectorAll('ul'))
+    const parent = menuButton[index].nextSibling.querySelectorAll('li');
+    console.log(parent, 'next')
+    const parentFilter = Array.from(parent).filter(node => {
+      //console.log(node)
+      return node.getAttribute('data-category') === menuButton[index].getAttribute('data-category');
+    });
+
+    console.log(parentFilter)
+    parentFilter.forEach(li => {
+      li.querySelector('.category-parent').classList.remove('hide');
+
+      if (li.querySelector('.category-link').getAttribute('data-category') === menuButton[index].getAttribute('data-category')) {
+        li.querySelector('.category-link').classList.remove('hide');
       }
-    }
+      
+      //if (li.nextSibling.className === 'category-link')
+    });
+    
   }
 
   function triggersMenu() {
