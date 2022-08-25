@@ -107,6 +107,7 @@
                 top: 0;
                 bottom: 0;
                 margin: auto;
+                transition: 0.5s all;
             }
             &.active {
                 &:before {
@@ -150,19 +151,31 @@
             overflow: hidden;
         }
     }
-    .sidebar-filter, .sidebar-filter-options {
-        &:before {
+    .sidebar-filters {
+        margin-bottom: 25px;
+        position: relative;
+        &:after {
             content: '';
-                border: solid #2264D1;
-                border-width: 0 2px 2px 0;
-                display: inline-block;
-                padding: 3px;
-                transform: rotate(45deg);
-                position: absolute;
-                right: 20px;
-                top: 15px;
-                width: 2px;
-                height: 2px;
+            border: solid #2264D1;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+            transform: rotate(45deg);
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            width: 2px;
+            height: 2px;
+            z-index: 10;
+            transition: 0.5s all;
+        }
+        &.active {
+            &:after {
+                content: '';
+                border-color: #4A4B57;
+                transform: rotate(-135deg);
+                transition: 0.5s all;
+            }
         }
     }
 
@@ -204,6 +217,8 @@
                     margin-left: 3px;
                     border: 2px solid #4A4B57;
                     cursor: pointer;
+                    opacity: 1;
+                    transition: background-color 0.5s ease-out;
                 }
                 input[type=checkbox]:checked, input[type=radio]:checked {
                     appearance: none;
@@ -214,14 +229,12 @@
                     background: #2e75e8;
                     border: 2px solid #2e75e8;
                     cursor: pointer;
+                    opacity: 1;
+                    transition: background-color 0.5s ease-out;
                 }
             }
         }
-        &:before {
-            content: '';
-                border-color: #4A4B57;
-                transform: rotate(-135deg);
-        }
+        
     }
 
     .hide {
@@ -237,7 +250,5 @@
         visibility: visible;
         height: 100%;
     }
-    .sidebar-filters {
-        margin-bottom: 25px;
-    }
+
 }

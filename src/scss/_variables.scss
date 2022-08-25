@@ -1,1 +1,10 @@
 $color-blue: #2264D1;
+
+:root {
+    --item-width-1492px: 23.9%;
+    --item-width-column: 100%;
+    --item-width: var(--item-width-1492px);
+    --item-border-none: none;
+    --item-border-set: 1px solid #ccc;
+    --item-border: var(--item-border-none);
+}

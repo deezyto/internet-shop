@@ -96,17 +96,65 @@ window.addEventListener('DOMContentLoaded', () => {
             item.classList.toggle('hide');
             item.nextSibling.classList.toggle('hide');
             item.nextSibling.classList.toggle('active');
+            
           } catch {
             item.previousElementSibling.classList.toggle('hide');
             item.classList.toggle('active');
           }
+          item.parentNode.classList.toggle('active');
         } else {
-          console.log(e.target, e.target.checked, e.target.classList.contains('sidebar-filter-option'))
+
           if (e.target.classList.contains('sidebar-filter-option')) {
             e.target.querySelector('input').click();
           }
         }
       })
+    });
+  }
+
+  function removeActive(selector) {
+    document.querySelectorAll(selector).forEach(item => {
+      item.classList.remove('active');
+    })
+  }
+
+  function setActive(selector, index) {
+    document.querySelectorAll(selector)[index].classList.add('active');
+  }
+
+  function checkLocalStorage(param) {
+    if (localStorage.getItem(param) !== null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function setLocalStorage(key, value) {
+    localStorage.setItem(key, value);
+    return localStorage.getItem(key);
+  }
+
+  
+  function triggerStyleView(selector) {
+    document.querySelectorAll(selector).forEach((item, index) => {
+      item.addEventListener('click', (e) => {
+        removeActive(selector);
+        //item.classList.add('active');
+        
+        if (!index) {
+          document.querySelector('.content .items').classList.add('width-column');
+          item.parentNode.classList.add('active');
+          setLocalStorage('item-width', 'width-column');
+        } else {
+          document.querySelector('.content .items').classList.remove('width-column');
+          item.parentNode.classList.remove('active');
+          localStorage.removeItem('item-width');
+        }
+        //document.documentElement.style.setProperty('--item-width', 'var(--item-width-column)');
+        
+
+      });
     });
   }
 
@@ -117,5 +165,11 @@ window.addEventListener('DOMContentLoaded', () => {
   hideMenuLink('.sidebar-filter-options', false);
   triggersFilter('.sidebar-filter');
   triggersFilter('.sidebar-filter-options');
+  setActive('.style-view button', 1);
+  triggerStyleView('.style-view button');
+
+  if (checkLocalStorage('item-width')) {
+    document.querySelectorAll('.style-view button')[0].click();
+  }
   
 });
