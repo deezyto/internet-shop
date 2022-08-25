@@ -100,6 +100,11 @@ window.addEventListener('DOMContentLoaded', () => {
             item.previousElementSibling.classList.toggle('hide');
             item.classList.toggle('active');
           }
+        } else {
+          console.log(e.target, e.target.checked, e.target.classList.contains('sidebar-filter-option'))
+          if (e.target.classList.contains('sidebar-filter-option')) {
+            e.target.querySelector('input').click();
+          }
         }
       })
     });
