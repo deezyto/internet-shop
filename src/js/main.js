@@ -118,8 +118,8 @@ window.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  function setActive(selector, index) {
-    document.querySelectorAll(selector)[index].classList.add('active');
+  function setActive(selector, index, classActive) {
+    document.querySelectorAll(selector)[index].classList.add(classActive);
   }
 
   function checkLocalStorage(param) {
@@ -135,25 +135,40 @@ window.addEventListener('DOMContentLoaded', () => {
     return localStorage.getItem(key);
   }
 
-  
-  function triggerStyleView(selector) {
+  function triggerStyleView(selector, property) {
+    const button = document.querySelectorAll(selector);
     document.querySelectorAll(selector).forEach((item, index) => {
       item.addEventListener('click', (e) => {
         removeActive(selector);
         //item.classList.add('active');
         
         if (!index) {
-          document.querySelector('.content .items').classList.add('width-column');
-          item.parentNode.classList.add('active');
-          setLocalStorage('item-width', 'width-column');
+          if (selector === '.style-view button') {
+            document.querySelector('.content .items').classList.add('width-column');
+            setLocalStorage('item-width', 'width-column');
+          }
+          item.parentNode.classList.add('current-button');
         } else {
-          document.querySelector('.content .items').classList.remove('width-column');
-          item.parentNode.classList.remove('active');
-          localStorage.removeItem('item-width');
+          if (selector === '.style-view button') {
+            document.querySelector('.content .items').classList.remove('width-column');
+            localStorage.removeItem('item-width');
+          }
+          item.parentNode.classList.remove('current-button');
         }
-        //document.documentElement.style.setProperty('--item-width', 'var(--item-width-column)');
+        let elem = 0;
+        for (let i = 0; i < index; i++) {
+          const style = Math.floor(window.getComputedStyle(button[i]).width.replace(/[^0-9.]/g, ''));
+          console.log(style)
+          elem += style;
+        }
+        const currentButton = window.getComputedStyle(button[index]).width;
+        if (index) {
+          document.documentElement.style.setProperty(property.replace(/width/, 'transform'), `${elem}px`);
+          document.documentElement.style.setProperty(property, currentButton);
+        } else {
+          document.documentElement.style.setProperty(property, currentButton);
+        }
         
-
       });
     });
   }
@@ -165,8 +180,11 @@ window.addEventListener('DOMContentLoaded', () => {
   hideMenuLink('.sidebar-filter-options', false);
   triggersFilter('.sidebar-filter');
   triggersFilter('.sidebar-filter-options');
-  setActive('.style-view button', 1);
-  triggerStyleView('.style-view button');
+  setActive('.style-view button', 1, 'current-button');
+  triggerStyleView('.style-view button', '--button-style-width');
+
+  setActive('.show button', 1, 'current-button');
+  triggerStyleView('.show button', '--button-show-style-width');
 
   if (checkLocalStorage('item-width')) {
     document.querySelectorAll('.style-view button')[0].click();

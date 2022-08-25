@@ -126,14 +126,15 @@
         column-gap: 24px;
     }
     .show, .style-view {
-        display: inline-block;
+        display: grid;
+        grid-template-columns: auto auto auto;
         background: rgb(235, 242, 255);
         border-radius: 5px;
         z-index: 10;
         position: relative;
         &:before {
             content: '';
-            width: 50%;
+            width: var(--button-style-width);
             height: 100%;
             position: absolute;
             font-weight: 500;
@@ -143,9 +144,9 @@
             z-index: -1;
             border-radius: 5px;
             transition: 0.2s all;
-            transform: translateX(100%);
+            transform: translateX(var(--button-style-transform));
         }
-        &.active {
+        &.current-button {
             &:before {
                 transform: translateX(0);
             }
@@ -160,6 +161,12 @@
             line-height: 143%;
             color: #5A5B6A;
             cursor: pointer;
+        }
+    }
+    .show {
+        &:before {
+            width: var(--button-show-style-width);
+            transform: translateX(var(--button-show-style-transform));
         }
     }
     .style-view {
