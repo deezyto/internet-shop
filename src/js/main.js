@@ -89,17 +89,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function triggersFilter(selector) {
     document.querySelectorAll(selector).forEach((item, index) => {
+      console.log(item, 'i')
       item.addEventListener('click', (e) => {
-        e.preventDefault();
-        console.log(e.target)
-
-        try {
-          item.classList.toggle('hide');
-          item.nextSibling.classList.toggle('hide');
-          item.nextSibling.classList.toggle('active');
-        } catch {
-          item.previousElementSibling.classList.toggle('hide');
-          item.classList.toggle('active');
+        if (e.target === item.querySelector('span')) {
+          try {
+            item.classList.toggle('hide');
+            item.nextSibling.classList.toggle('hide');
+            item.nextSibling.classList.toggle('active');
+          } catch {
+            item.previousElementSibling.classList.toggle('hide');
+            item.classList.toggle('active');
+          }
         }
       })
     });
