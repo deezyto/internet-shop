@@ -243,7 +243,11 @@ window.addEventListener('DOMContentLoaded', () => {
       }
       const countCart = cartModal.querySelectorAll('.item');
       cartButton.previousElementSibling.textContent = `${countCart.length}`;
+      const itemPrice = item.querySelector('.current-price').textContent.replace(/[^0-9]/g, '');
+      const check = document.querySelector('.check');
+      const checkMoney = check.querySelector('.money').textContent.replace(/[^0-9]/g, '');
       
+      check.querySelector('.money').textContent = `$${+itemPrice + +checkMoney}`;
     });
     
   });

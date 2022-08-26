@@ -63,4 +63,39 @@
             order: 4;
         }
     }
+
+    .check {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 10px;
+        .check-wrapper {
+            display: flex;
+            border: 2px solid rgb(55, 206, 55);
+            border-radius: 5px;
+            transition: 0.5s all;
+            background: rgb(55, 206, 55);
+            &:hover {
+                background: rgb(114, 242, 114);
+            }
+        }
+        .money {
+            font-size: 20px;
+            padding: 10px 20px;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            background: white;
+        }
+        button {
+            width: 100px;
+            padding: 10px 20px;
+            font-size: 20px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            background: transparent;
+            transition: 0.5s all;
+            cursor: pointer;
+        }
+    }
 }
