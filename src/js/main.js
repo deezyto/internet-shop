@@ -18,8 +18,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const item = document.querySelector('.content .item');
   console.log(item.parentNode)
-  for (let i = 0; i < 20; i++) {
-    const cloneNode = item.cloneNode(true);
+  for (let i = 1; i < 20; i++) {
+    let cloneNode = item.cloneNode(true);
+    const price = cloneNode.querySelector('.current-price').textContent.replace(/[^0-9]/g, '');
+    cloneNode.querySelector('.current-price').textContent = `$${+price + i}`
+    cloneNode.setAttribute('data-item-id', i);
     item.parentNode.append(cloneNode);
   }
 
@@ -189,5 +192,73 @@ window.addEventListener('DOMContentLoaded', () => {
   if (checkLocalStorage('item-width')) {
     document.querySelectorAll('.style-view button')[0].click();
   }
+
+  const cartButton = document.querySelector('.user-open-cart');
+  const cartModal = document.querySelector('.cart .overlay');
+  const items = document.querySelectorAll('.content .item');
+
+  cartButton.addEventListener('click', () => {
+    cartModal.classList.add('active');
+  });
+  cartModal.querySelector('.close').addEventListener('click', () => {
+    cartModal.classList.remove('active');
+  });
+
+  function checkCartItem(elem) {
+    let done = 0;
+    cartModal.querySelectorAll('.item').forEach(item => {
+      if (elem.getAttribute('data-item-id') === item.getAttribute('data-item-id')) {
+        const count = +item.querySelector('input').value;
+        item.querySelector('input').value = `${count + 1}`;
+        done++;
+        return false;
+      }
+    });
+    if (!done) {
+      return true;
+    }
+
+  }
   
+  items.forEach((item, index) => {
+    item.addEventListener('click', (e) => {
+      let cloneItem = item.cloneNode(true);
+      const div = document.createElement('div');
+      const input = document.createElement('input');
+      const buttonRemove = document.createElement('button');
+      buttonRemove.classList.add('button-remove');
+      buttonRemove.textContent = 'delete';
+      input.setAttribute('type', 'number');
+      input.setAttribute('name', 'points');
+      input.setAttribute('step', '1');
+      input.value = 1;
+      div.classList.add('count');
+      div.appendChild(input);
+      div.appendChild(buttonRemove);
+      cloneItem.appendChild(div);
+      cartModal.querySelector('.space-cart').textContent = '';
+      if (checkCartItem(cloneItem) || cartModal.querySelectorAll('.item').length === 0) {
+        cartModal.querySelector('.items').appendChild(cloneItem);
+        removeItemCart();
+      }
+      const countCart = cartModal.querySelectorAll('.item');
+      cartButton.previousElementSibling.textContent = `${countCart.length}`;
+      
+    });
+    
+  });
+
+
+  function removeItemCart() {
+    cartModal.querySelectorAll('.button-remove').forEach(button => {
+      button.addEventListener('click', (e) => {
+          e.target.parentNode.parentNode.remove();
+          const length = cartModal.querySelectorAll('.item').length;
+          cartButton.previousElementSibling.textContent = `${length}`;
+          if (length === 0) {
+            cartModal.querySelector('.space-cart').textContent = 'Your cart is space';
+          }
+      });
+    })
+  }
 });
