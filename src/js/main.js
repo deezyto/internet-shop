@@ -236,7 +236,7 @@ window.addEventListener('DOMContentLoaded', () => {
       div.appendChild(input);
       div.appendChild(buttonRemove);
       cloneItem.appendChild(div);
-      cartModal.querySelector('.space-cart').textContent = '';
+      cartModal.querySelector('.space-cart').style.display = 'none';
       if (checkCartItem(cloneItem) || cartModal.querySelectorAll('.item').length === 0) {
         cartModal.querySelector('.items').appendChild(cloneItem);
         removeItemCart();
@@ -266,7 +266,7 @@ window.addEventListener('DOMContentLoaded', () => {
           cartModal.querySelector('.money').textContent = `$${countPrice}`;
           cartButton.previousElementSibling.textContent = `${length}`;
           if (length === 0) {
-            cartModal.querySelector('.space-cart').textContent = 'Your cart is space';
+            cartModal.querySelector('.space-cart').style.display = '';
           }
       });
     })
