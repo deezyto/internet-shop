@@ -21,8 +21,9 @@ window.addEventListener('DOMContentLoaded', () => {
   for (let i = 1; i < 20; i++) {
     let cloneNode = item.cloneNode(true);
     const price = cloneNode.querySelector('.current-price').textContent.replace(/[^0-9]/g, '');
-    cloneNode.querySelector('.current-price').textContent = `$${+price + (i + 50)}`
+    const newPrice = cloneNode.querySelector('.current-price').textContent = `$${+price + (i + 50)}`
     cloneNode.setAttribute('data-item-id', i);
+    cloneNode.setAttribute('data-item-price', newPrice);
     item.parentNode.append(cloneNode);
   }
 
@@ -191,6 +192,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if (checkLocalStorage('item-width')) {
     document.querySelectorAll('.style-view button')[0].click();
+  } else {
+    document.querySelectorAll('.style-view button')[1].click();
   }
 
   const cartButton = document.querySelector('.user-open-cart');
@@ -209,7 +212,9 @@ window.addEventListener('DOMContentLoaded', () => {
     cartModal.querySelectorAll('.item').forEach(item => {
       if (elem.getAttribute('data-item-id') === item.getAttribute('data-item-id')) {
         const count = +item.querySelector('input').value;
+        const itemPrice = +item.getAttribute('data-item-price').replace(/[^0-9]/g, '');
         item.querySelector('input').value = `${count + 1}`;
+        item.querySelector('.current-price').textContent = `$${itemPrice * +item.querySelector('input').value}`;
         done++;
         return false;
       }
@@ -248,27 +253,51 @@ window.addEventListener('DOMContentLoaded', () => {
       const checkMoney = check.querySelector('.money').textContent.replace(/[^0-9]/g, '');
       
       check.querySelector('.money').textContent = `$${+itemPrice + +checkMoney}`;
+      check.classList.add('active');
+      changeCurrentItemInCart();
     });
-    
   });
 
+  function chanceCountCart() {
+    const itemPrice = cartModal.querySelectorAll('.current-price');
+    let countPrice = 0;
+    itemPrice.forEach(price => {
+      countPrice += +price.textContent.replace(/[^0-9]/g, '');
+    });
+    cartModal.querySelector('.money').textContent = `$${countPrice}`;
+  }
 
   function removeItemCart() {
     cartModal.querySelectorAll('.button-remove').forEach(button => {
       button.addEventListener('click', (e) => {
           e.target.parentNode.parentNode.remove();
+          console.log(e.target)
           const length = cartModal.querySelectorAll('.item').length;
-          const itemPrice = cartModal.querySelectorAll('.current-price');
-          let countPrice = 0;
-          itemPrice.forEach(price => {
-            countPrice += +price.textContent.replace(/[^0-9]/g, '');
-          });
-          cartModal.querySelector('.money').textContent = `$${countPrice}`;
+          chanceCountCart();
           cartButton.previousElementSibling.textContent = `${length}`;
           if (length === 0) {
             cartModal.querySelector('.space-cart').style.display = '';
+            cartModal.querySelector('.check').classList.remove('active');
           }
       });
     })
   }
+
+  function changeCurrentItemInCart() {
+    const items = cartModal.querySelectorAll('.item');
+
+    items.forEach(item => {
+      item.querySelector('input').addEventListener('input', (e) => {
+        const countItem = item.querySelector('input');
+        const itemPrice = item.getAttribute('data-item-price').replace(/[^0-9]/g, '');
+        if (countItem.value > 0) {
+          item.querySelector('.current-price').textContent = `$${itemPrice * countItem.value}`;
+        } else {
+          countItem.value = 1;
+        }
+        chanceCountCart();
+      })
+    })
+  }
+  
 });
