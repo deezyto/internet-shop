@@ -258,6 +258,12 @@ window.addEventListener('DOMContentLoaded', () => {
       button.addEventListener('click', (e) => {
           e.target.parentNode.parentNode.remove();
           const length = cartModal.querySelectorAll('.item').length;
+          const itemPrice = cartModal.querySelectorAll('.current-price');
+          let countPrice = 0;
+          itemPrice.forEach(price => {
+            countPrice += +price.textContent.replace(/[^0-9]/g, '');
+          });
+          cartModal.querySelector('.money').textContent = `$${countPrice}`;
           cartButton.previousElementSibling.textContent = `${length}`;
           if (length === 0) {
             cartModal.querySelector('.space-cart').textContent = 'Your cart is space';
