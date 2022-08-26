@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
   for (let i = 1; i < 20; i++) {
     let cloneNode = item.cloneNode(true);
     const price = cloneNode.querySelector('.current-price').textContent.replace(/[^0-9]/g, '');
-    cloneNode.querySelector('.current-price').textContent = `$${+price + i}`
+    cloneNode.querySelector('.current-price').textContent = `$${+price + (i + 5)}`
     cloneNode.setAttribute('data-item-id', i);
     item.parentNode.append(cloneNode);
   }
