@@ -32,6 +32,7 @@
         }
         .price, .desc, .info, .title {
             display: inline-block;
+            min-width: 100px;
         }
         .title {
             width: 30%;
