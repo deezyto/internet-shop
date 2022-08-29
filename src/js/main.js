@@ -1,4 +1,14 @@
+
+import Cart from './modules/cart/cart';
+import Items from './modules/content/items';
+import SidebarMenu from './modules/sidebar/sidebar-menu';
+
 window.addEventListener('DOMContentLoaded', () => {
+  new Cart({selectorModal: '.user-open-cart', selectorCartShow: '.cart .overlay'}).render();
+  new Items().render();
+  new SidebarMenu({selector: '.category-parent'}).render();
+
+
   const form = document.querySelectorAll('form');
   ['input', 'click'].forEach(event => {
     form[0].addEventListener(event, (e) => {
@@ -16,16 +26,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  const item = document.querySelector('.content .item');
-  console.log(item.parentNode)
-  for (let i = 1; i < 20; i++) {
-    let cloneNode = item.cloneNode(true);
-    const price = cloneNode.querySelector('.current-price').textContent.replace(/[^0-9]/g, '');
-    const newPrice = cloneNode.querySelector('.current-price').textContent = `$${+price + (i + 50)}`
-    cloneNode.setAttribute('data-item-id', i);
-    cloneNode.setAttribute('data-item-price', newPrice);
-    item.parentNode.append(cloneNode);
-  }
 
   const menuButton = document.querySelectorAll('.category-parent');
   const showMore = document.querySelectorAll('.show-more');
@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const filter = document.querySelectorAll('.sidebar-filter');
 
   
-  function hideMenuLink(selector, first = true) {
+  /* function hideMenuLink(selector, first = true) {
     document.querySelectorAll(selector).forEach((button, index) => {
       if (index !== 0 && first) {
         button.classList.add('hide');
@@ -42,9 +42,9 @@ window.addEventListener('DOMContentLoaded', () => {
         button.classList.add('hide');
       }
     });
-  }
+  } */
 
-  function showMenuLink(index, e) {
+  /* function showMenuLink(index, e) {
 
     const parent = menuButton[index].nextSibling.querySelectorAll('li');
 
@@ -79,9 +79,9 @@ window.addEventListener('DOMContentLoaded', () => {
       
     });
     
-  }
+  } */
 
-  function triggersMenu() {
+  /* function triggersMenu() {
     menuButton.forEach((button, index) => {
       button.addEventListener('click', (e) => {
         e.preventDefault();
@@ -89,7 +89,7 @@ window.addEventListener('DOMContentLoaded', () => {
         showMenuLink(index, e.target);
       })
     });
-  }
+  } */
 
   function triggersFilter(selector) {
     document.querySelectorAll(selector).forEach((item, index) => {
@@ -178,12 +178,12 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  hideMenuLink('.category-parent')
-  hideMenuLink('.category-link', false);
-  triggersMenu();
-  hideMenuLink('.sidebar-filter-options', false);
-  triggersFilter('.sidebar-filter');
-  triggersFilter('.sidebar-filter-options');
+  //hideMenuLink('.category-parent')
+  //hideMenuLink('.category-link', false);
+  //triggersMenu();
+  //hideMenuLink('.sidebar-filter-options', false);
+  //triggersFilter('.sidebar-filter');
+  //triggersFilter('.sidebar-filter-options');
   setActive('.style-view button', 1, 'current-button');
   triggerStyleView('.style-view button', '--button-style-width');
 
@@ -199,13 +199,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const cartButton = document.querySelector('.user-open-cart');
   const cartModal = document.querySelector('.cart .overlay');
   const items = document.querySelectorAll('.content .item');
-
-  cartButton.addEventListener('click', () => {
-    cartModal.classList.add('active');
-  });
-  cartModal.querySelector('.close').addEventListener('click', () => {
-    cartModal.classList.remove('active');
-  });
+  
 
   function checkCartItem(elem) {
     let done = 0;
@@ -222,41 +216,44 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!done) {
       return true;
     }
-
   }
   
-  items.forEach((item, index) => {
-    item.addEventListener('click', (e) => {
-      let cloneItem = item.cloneNode(true);
-      const div = document.createElement('div');
-      const input = document.createElement('input');
-      const buttonRemove = document.createElement('button');
-      buttonRemove.classList.add('button-remove');
-      buttonRemove.textContent = 'delete';
-      input.setAttribute('type', 'number');
-      input.setAttribute('name', 'points');
-      input.setAttribute('step', '1');
-      input.value = 1;
-      div.classList.add('count');
-      div.appendChild(input);
-      div.appendChild(buttonRemove);
-      cloneItem.appendChild(div);
-      cartModal.querySelector('.space-cart').style.display = 'none';
-      if (checkCartItem(cloneItem) || cartModal.querySelectorAll('.item').length === 0) {
-        cartModal.querySelector('.items').appendChild(cloneItem);
-        removeItemCart();
-      }
-      const countCart = cartModal.querySelectorAll('.item');
-      cartButton.previousElementSibling.textContent = `${countCart.length}`;
-      const itemPrice = item.querySelector('.current-price').textContent.replace(/[^0-9]/g, '');
-      const check = document.querySelector('.check');
-      const checkMoney = check.querySelector('.money').textContent.replace(/[^0-9]/g, '');
-      
-      check.querySelector('.money').textContent = `$${+itemPrice + +checkMoney}`;
-      check.classList.add('active');
-      changeCurrentItemInCart();
+  function itemToCart() {
+    items.forEach((item, index) => {
+      item.addEventListener('click', (e) => {
+        let cloneItem = item.cloneNode(true);
+        const div = document.createElement('div');
+        const input = document.createElement('input');
+        const buttonRemove = document.createElement('button');
+        buttonRemove.classList.add('button-remove');
+        buttonRemove.textContent = 'delete';
+        input.setAttribute('type', 'number');
+        input.setAttribute('name', 'points');
+        input.setAttribute('step', '1');
+        input.value = 1;
+        div.classList.add('count');
+        div.appendChild(input);
+        div.appendChild(buttonRemove);
+        cloneItem.appendChild(div);
+        cartModal.querySelector('.space-cart').style.display = 'none';
+        if (checkCartItem(cloneItem) || cartModal.querySelectorAll('.item').length === 0) {
+          cartModal.querySelector('.items').appendChild(cloneItem);
+          removeItemCart();
+        }
+        const countCart = cartModal.querySelectorAll('.item');
+        cartButton.previousElementSibling.textContent = `${countCart.length}`;
+        const itemPrice = item.querySelector('.current-price').textContent.replace(/[^0-9]/g, '');
+        const check = document.querySelector('.check');
+        const checkMoney = check.querySelector('.money').textContent.replace(/[^0-9]/g, '');
+        
+        check.querySelector('.money').textContent = `$${+itemPrice + +checkMoney}`;
+        check.classList.add('active');
+        changeCurrentItemInCart();
+      });
     });
-  });
+  }
+  itemToCart();
+  
 
   function chanceCountCart() {
     const itemPrice = cartModal.querySelectorAll('.current-price');
