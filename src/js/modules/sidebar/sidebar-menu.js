@@ -1,6 +1,6 @@
 
 export default class SidebarMenu {
-  constructor ({selector}) {
+  constructor({selector}) {
     this.selector = selector;
     this.parentCategory = document.querySelectorAll(selector);
     //const showMore = document.querySelectorAll('.show-more');

@@ -1,7 +1,7 @@
 import Resources from "../../services/services";
 
 export default class Items {
-  constructor () {
+  constructor() {
     this.obj = {};
     console.log(new Resources('http://localhost:3020/items').getResource())
   }

@@ -1,6 +1,6 @@
 
 export default class Resources {
-  constructor (url) {
+  constructor(url) {
     this.url = url;
   }
   async getResource() {
