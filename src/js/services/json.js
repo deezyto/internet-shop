@@ -12,7 +12,9 @@ const readingNotes = () => {
   }
 }
 
-const post = ({title, descBig, descLittle, img, priceCurrent, pricePrevious, rating}) => {
+const post = ({title, descBig, descLittle, img, yearManufacturing, expiration, 
+              priceCurrent, recommendet, dateCreate, deliveryFast, deliveryEconom,
+              deliveryFree, pricePrevious, priceType, rating}) => {
   const note = readingNotes();
   console.log(note)
 
@@ -24,9 +26,19 @@ const post = ({title, descBig, descLittle, img, priceCurrent, pricePrevious, rat
         big: descBig,
         little: descLittle,
         img: img,
+        delivery: {
+          fast: deliveryFast,
+          econom: deliveryEconom,
+          free: deliveryFree
+        },
+        dateCreate: dateCreate,
+        recommendet: recommendet,
+        yearManufacturing: yearManufacturing,
+        expiration: expiration,
         price: {
           current: priceCurrent,
           previous: pricePrevious,
+          type: priceType
         },
         rating: rating
       },
@@ -50,7 +62,15 @@ post({
   img: '../img/items/item1.jpg',
   priceCurrent: '$50',
   pricePrevious: '$100',
-  rating: 5
+  rating: 5,
+  priceType: 'auction',
+  deliveryFast: true,
+  deliveryEconom: true,
+  deliveryFree: false,
+  dateCreate: '01.08.2022',
+  recommendet: true,
+  yearManufacturing: '2010',
+  expiration: '10.09.2022',
 })
 
 post({
@@ -60,7 +80,15 @@ post({
   img: '../img/items/item2.jpg',
   priceCurrent: '$14',
   pricePrevious: '$25',
-  rating: 4.5
+  rating: 4.5,
+  priceType: 'buyNow',
+  deliveryFast: true,
+  deliveryEconom: true,
+  deliveryFree: true,
+  dateCreate: '20.07.2022',
+  recommendet: true,
+  yearManufacturing: '2012',
+  expiration: null,
 })
 
 post({
@@ -70,7 +98,15 @@ post({
   img: '../img/items/item3.jpg',
   priceCurrent: '$128',
   pricePrevious: '$135',
-  rating: 5
+  rating: 5,
+  priceType: 'buyNow',
+  deliveryFast: true,
+  deliveryEconom: true,
+  deliveryFree: true,
+  dateCreate: '25.07.2022',
+  recommendet: true,
+  yearManufacturing: '2014',
+  expiration: null,
 })
 
 post({
@@ -80,7 +116,15 @@ post({
   img: '../img/items/item4.jpg',
   priceCurrent: '$14',
   pricePrevious: '$16',
-  rating: 5
+  rating: 5,
+  priceType: 'buyNow',
+  deliveryFast: true,
+  deliveryEconom: true,
+  deliveryFree: true,
+  dateCreate: '20.07.2022',
+  recommendet: true,
+  yearManufacturing: '2012',
+  expiration: null,
 })
 
 post({
@@ -90,7 +134,15 @@ post({
   img: '../img/items/item5.jpg',
   priceCurrent: '$11',
   pricePrevious: '$15',
-  rating: 4.4
+  rating: 4.4,
+  priceType: 'buyNow',
+  deliveryFast: false,
+  deliveryEconom: true,
+  deliveryFree: false,
+  dateCreate: '20.07.2022',
+  recommendet: true,
+  yearManufacturing: '2012',
+  expiration: null,
 })
 
 post({
@@ -100,7 +152,15 @@ post({
   img: '../img/items/item6.jpg',
   priceCurrent: '$128',
   pricePrevious: '$150',
-  rating: 4
+  rating: 4,
+  priceType: 'buyNow',
+  deliveryFast: true,
+  deliveryEconom: false,
+  deliveryFree: false,
+  dateCreate: '20.07.2022',
+  recommendet: true,
+  yearManufacturing: '2012',
+  expiration: null,
 })
 
 post({
@@ -110,7 +170,15 @@ post({
   img: '../img/items/item7.jpg',
   priceCurrent: '$14',
   pricePrevious: '$20',
-  rating: 4
+  rating: 4,
+  priceType: 'buyNow',
+  deliveryFast: true,
+  deliveryEconom: true,
+  deliveryFree: true,
+  dateCreate: '20.07.2022',
+  recommendet: true,
+  yearManufacturing: '2012',
+  expiration: null,
 })
 
 post({
@@ -120,7 +188,15 @@ post({
   img: '../img/items/item8.jpg',
   priceCurrent: '$9.5',
   pricePrevious: '$10',
-  rating: 5
+  rating: 5,
+  priceType: 'buyNow',
+  deliveryFast: false,
+  deliveryEconom: true,
+  deliveryFree: true,
+  dateCreate: '20.07.2022',
+  recommendet: true,
+  yearManufacturing: '2012',
+  expiration: null,
 })
 
 post({
@@ -130,7 +206,15 @@ post({
   img: '../img/items/item9.jpg',
   priceCurrent: '$145',
   pricePrevious: '$180',
-  rating: 5
+  rating: 5,
+  priceType: 'auction',
+  deliveryFast: false,
+  deliveryEconom: true,
+  deliveryFree: false,
+  dateCreate: '30.07.2022',
+  recommendet: false,
+  yearManufacturing: '2008',
+  expiration: '25.10.2022',
 })
 
 post({
@@ -140,7 +224,15 @@ post({
   img: '../img/items/item10.jpg',
   priceCurrent: '$11.6',
   pricePrevious: '$15',
-  rating: 4.3
+  rating: 4.3,
+  priceType: 'buyNow',
+  deliveryFast: true,
+  deliveryEconom: true,
+  deliveryFree: true,
+  dateCreate: '20.07.2022',
+  recommendet: true,
+  yearManufacturing: '2012',
+  expiration: null,
 })
 
 post({
@@ -150,7 +242,15 @@ post({
   img: '../img/items/item11.jpg',
   priceCurrent: '$1.2',
   pricePrevious: '$2',
-  rating: 4.3
+  rating: 4.3,
+  priceType: 'buyNow',
+  deliveryFast: false,
+  deliveryEconom: true,
+  deliveryFree: false,
+  dateCreate: '20.07.2022',
+  recommendet: true,
+  yearManufacturing: '2012',
+  expiration: null,
 })
 
 post({
@@ -160,5 +260,13 @@ post({
   img: '../img/items/item12.jpg',
   priceCurrent: '$20',
   pricePrevious: '$25',
-  rating: 4.7
+  rating: 4.7,
+  priceType: 'buyNow',
+  deliveryFast: false,
+  deliveryEconom: true,
+  deliveryFree: false,
+  dateCreate: '20.07.2022',
+  recommendet: true,
+  yearManufacturing: '2012',
+  expiration: null,
 })

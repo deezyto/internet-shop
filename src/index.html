@@ -290,33 +290,35 @@
                         <div class="sort-tab">
                             <div class="sort sort-by">
                                 <span>sort by</span>
-                                <div class="current-sort" data-type="filter">Featured</div>
+                                <div class="current-sort" data-type="filter" data-type-current-filter="feature">Featured</div>
                                 <div class="sort-list">
                                     <ul>
-                                        <li data-type="filter-option">Price: Low to Hide</li>
-                                        <li data-type="filter-option">Price: Hide to Low</li>
-                                        <li data-type="filter-option">Newest Arrivals</li>
-                                        <li data-type="filter-option">Avg. Customer Review</li>
+                                        <li data-type-filter-option="feature">Featured</li>
+                                        <li data-type-filter-option="low">Price: Low to High</li>
+                                        <li data-type-filter-option="high">Price: High to Low</li>
+                                        <li data-type-filter-option="new">Newest Arrivals</li>
+                                        <li data-type-filter-option="review">Avg. Customer Review</li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="sort">
+                            <!-- <div class="sort">
                                 <div class="current-sort" data-type="filter">Condition</div>
                                 <div class="sort-list">
                                     <ul>
-                                        <li data-type="filter-option">Useless first</li>
-                                        <li data-type="filter-option">Useless first</li>
-                                        <li data-type="filter-option">Useless first</li>
+                                        <li data-type-filter-option="filter-option">Useless first</li>
+                                        <li data-type-filter-option="filter-option">Useless first</li>
+                                        <li data-type-filter-option="filter-option">Useless first</li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="sort">
-                                <div class="current-sort" data-type="filter">Delivery options</div>
+                                <div class="current-sort" data-type="filter" data-type-current-filter="all">Delivery options: all</div>
                                 <div class="sort-list">
                                     <ul>
-                                        <li data-type="filter-option">Free</li>
-                                        <li data-type="filter-option">Useless first</li>
-                                        <li data-type="filter-option">Useless first</li>
+                                        <li data-type-filter-option="all">Delivery options: all</li>
+                                        <li data-type-filter-option="delivery-free">Free</li>
+                                        <li data-type-filter-option="delivery-fast">Fast: 1-5 days</li>
+                                        <li data-type-filter-option="delivery-econom">Econom: > 30 days</li>
                                     </ul>
                                 </div>
                             </div>

@@ -9,16 +9,94 @@ export default class Items {
     this.obj = item;
   }
 
-  getItems(callback) {
+  getItems(callback, typeSort = 'low', currentType = '') {
     new Resources('http://localhost:3020/items').getResource()
     .then(res => {
       this.obj = res;
       this.postObj(res);
-      callback(res);
+      callback(res, typeSort, currentType);
     });
   }
 
-  createItem(obj) {
+  createItem(obj, typeSort = 'low', currentType = '') {
+
+    const removeItems = () => {
+      const items = document.querySelectorAll('.content .item');
+  
+      items.forEach((item, index) => {
+        if (index !== 0) {
+          item.remove();
+        }
+      });
+    }
+
+    const sortHigh = () => {
+      obj.sort((a, b) => +a.item.price.current.replace(/[^0-9.]/g, '') < +b.item.price.current.replace(/[^0-9.]/g, '') ? 1 : -1);
+    }
+
+    const sortLow = () => {
+      obj.sort((a, b) => +a.item.price.current.replace(/[^0-9.]/g, '') > +b.item.price.current.replace(/[^0-9.]/g, '') ? 1 : -1);
+    }
+
+    const sortFeature = () => {
+      const filter = obj.filter(elem => elem.item.recommendet === true);
+      obj = filter;
+    }
+
+    const sortDelivery = (type) => {
+      const filter = obj.filter(elem => elem.item.delivery[type] === true);
+      return filter;
+    }
+
+    const checkCurrentTypeDelivery = (typeSort) => {
+      sortDelivery(typeSort);
+      if (currentType === 'high') {
+        sortDelivery(typeSort);
+        sortHigh();
+        obj = sortDelivery(typeSort);
+      } else if (currentType === 'low') {
+        sortDelivery(typeSort);
+        sortLow();
+        obj = sortDelivery(typeSort);
+      } else if (currentType === 'feature') {
+        sortDelivery(typeSort);
+        sortFeature();
+        obj = sortDelivery(typeSort);
+      }
+    }
+
+    const checkCurrentTypeSort = (callback) => {
+      callback();
+      if (currentType === 'delivery-free') {
+        sortDelivery('free');
+        callback();
+        obj = sortDelivery('free');
+      } else if (currentType === 'delivery-fast') {
+        sortDelivery('fast');
+        callback();
+        obj = sortDelivery('fast');
+      } else if (currentType === 'delivery-econom') {
+        sortDelivery('econom');
+        callback();
+        obj = sortDelivery('econom');
+      }
+    }
+
+    console.log(typeSort, 'type');
+    removeItems();
+    if (typeSort === 'low') {
+      checkCurrentTypeSort(sortLow);
+    } else if (typeSort === 'high') {
+      checkCurrentTypeSort(sortHigh);
+    } else if (typeSort === 'feature') {
+      checkCurrentTypeSort(sortFeature);
+    } else if (typeSort === 'delivery-free') {
+      checkCurrentTypeDelivery('free');
+    } else if (typeSort === 'delivery-fast') {
+      checkCurrentTypeDelivery('fast');
+    } else if (typeSort === 'delivery-econom') {
+      checkCurrentTypeDelivery('econom');
+    }
 
     for (let i = 0; i < obj.length; i++) {
       const item = document.querySelector('.content .item');
