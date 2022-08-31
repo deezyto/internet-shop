@@ -170,6 +170,7 @@
             transition: 0.5s all;
         }
         &.active {
+            height: auto;
             &:after {
                 content: '';
                 border-color: #4A4B57;

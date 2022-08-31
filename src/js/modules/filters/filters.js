@@ -48,6 +48,9 @@ export default class Filters extends Items {
           case 'delivery-econom':
             this.getItems(this.createItem, 'delivery-econom', sortTab[0].getAttribute('data-type-current-filter'));
             break;
+          case 'delivery-all':
+            this.getItems(this.createItem, 'delivery-all', sortTab[0].getAttribute('data-type-current-filter'));
+            break;
         }
         e.target.parentNode.parentNode.parentNode.querySelector('.current-sort').setAttribute('data-type-current-filter', filterOption);
         e.target.parentNode.parentNode.parentNode.querySelector('.current-sort').textContent = currentFilter;

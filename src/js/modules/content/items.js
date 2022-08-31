@@ -43,41 +43,37 @@ export default class Items {
       obj = filter;
     }
 
-    const sortDelivery = (type) => {
-      const filter = obj.filter(elem => elem.item.delivery[type] === true);
-      return filter;
+    const sortDelivery = (type = 'all') => {
+      if (type === 'all') {
+        return obj;
+      } else {
+        const filter = obj.filter(elem => elem.item.delivery[type] === true);
+        return filter;
+      } 
     }
 
     const checkCurrentTypeDelivery = (typeSort) => {
       sortDelivery(typeSort);
       if (currentType === 'high') {
-        sortDelivery(typeSort);
         sortHigh();
-        obj = sortDelivery(typeSort);
       } else if (currentType === 'low') {
-        sortDelivery(typeSort);
         sortLow();
-        obj = sortDelivery(typeSort);
       } else if (currentType === 'feature') {
-        sortDelivery(typeSort);
         sortFeature();
-        obj = sortDelivery(typeSort);
       }
+      obj = sortDelivery(typeSort);
     }
 
     const checkCurrentTypeSort = (callback) => {
       callback();
       if (currentType === 'delivery-free') {
         sortDelivery('free');
-        callback();
         obj = sortDelivery('free');
       } else if (currentType === 'delivery-fast') {
         sortDelivery('fast');
-        callback();
         obj = sortDelivery('fast');
       } else if (currentType === 'delivery-econom') {
         sortDelivery('econom');
-        callback();
         obj = sortDelivery('econom');
       }
     }
@@ -96,6 +92,8 @@ export default class Items {
       checkCurrentTypeDelivery('fast');
     } else if (typeSort === 'delivery-econom') {
       checkCurrentTypeDelivery('econom');
+    } else if (typeSort === 'delivery-all') {
+      checkCurrentTypeDelivery('all');
     }
 
     for (let i = 0; i < obj.length; i++) {
@@ -110,6 +108,7 @@ export default class Items {
       cloneNode.querySelector('.current-price').textContent = obj[i].item.price.current;
       cloneNode.querySelector('img').setAttribute('src', obj[i].item.img);
       cloneNode.querySelector('.info .number').textContent = obj[i].item.rating;
+      
       item.parentNode.append(cloneNode);
       if (i === 1) {
         document.querySelectorAll('.content .item')[0].remove();

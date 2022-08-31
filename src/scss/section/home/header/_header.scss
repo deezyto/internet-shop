@@ -18,17 +18,6 @@ header {
             padding: 10px;
             .user-cart {
                 position: relative;
-                &:before {
-                    content: '';
-                    display: block;
-                    width: 20px;
-                    height: 20px;
-                    top: -10px;
-                    right: 5px;
-                    background: rgb(244, 68, 54);
-                    border-radius: 100%;
-                    position: absolute;
-                }
             }
             .user-cart-count {
                 position: absolute;
@@ -36,10 +25,15 @@ header {
                 font-weight: 700;
                 font-size: 14px;
                 line-height: 18px;
-                width: 20px;
-                height: 20px;
-                top: -8px;
-                right: -1px;
+                width: 25px;
+                height: 25px;
+                border-radius: 100%;
+                background: #f44436;
+                display: flex;
+                top: -16px;
+                align-items: center;
+                justify-content: center;
+                right: 5px;
                 z-index: 2;
             }
             img {
