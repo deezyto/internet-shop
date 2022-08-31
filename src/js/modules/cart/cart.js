@@ -20,21 +20,27 @@ export default class Cart {
 	}
 
 	checkCartItem(elem) {
-		let done = 0;
-		this.modal.querySelectorAll('.item').forEach(item => {
-		  if (elem.getAttribute('data-item-id') === item.getAttribute('data-item-id')) {
-			const count = +item.querySelector('input').value;
-			const itemPrice = +item.getAttribute('data-item-price').replace(/[^0-9.]/g, '');
-			item.querySelector('input').value = `${count + 1}`;
-			item.querySelector('.current-price').textContent = `$${itemPrice * +item.querySelector('input').value}`;
-			done++;
-			return false;
-		  }
-		});
-		if (!done) {
-		  return true;
-		}
-	  }
+    try {
+      let done = 0;
+      console.log(elem, 'elem')
+      this.modal.querySelectorAll('.item').forEach(item => {
+        if (elem.getAttribute('data-item-id') === item.getAttribute('data-item-id')) {
+        const count = +item.querySelector('input').value;
+        const itemPrice = +item.getAttribute('data-item-price').replace(/[^0-9.]/g, '');
+        item.querySelector('input').value = `${count + 1}`;
+        item.querySelector('.current-price').textContent = `$${itemPrice * +item.querySelector('input').value}`;
+        done++;
+        return false;
+        }
+      });
+      if (!done) {
+        return true;
+      }
+	  } catch {
+
+    }
+  }
+		
 
   itemToCart() {
     this.items.forEach((item, index) => {

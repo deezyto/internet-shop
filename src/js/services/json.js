@@ -12,7 +12,7 @@ const readingNotes = () => {
   }
 }
 
-const post = ({title, descBig, descLittle, img, yearManufacturing, expiration, 
+const post = ({id, title, descBig, descLittle, img, yearManufacturing, expiration, 
               priceCurrent, recommendet, dateCreate, deliveryFast, deliveryEconom,
               deliveryFree, pricePrevious, priceType, rating}) => {
   const note = readingNotes();
@@ -22,6 +22,7 @@ const post = ({title, descBig, descLittle, img, yearManufacturing, expiration,
   if (!copy) {
     note.items.push({
       item: {
+        id: id,
         title: title,
         big: descBig,
         little: descLittle,
@@ -56,6 +57,7 @@ const save = (note) => {
 }
 
 post({
+  id: 1,
   title: 'Vintage Typewriter to post awesome stories about UI design and webdev.',
   descBig: 'Eligible for Shipping To Mars or somewhere else',
   descLittle: 'Eligible for Shipping To Mars or somewhere else',
@@ -74,6 +76,7 @@ post({
 })
 
 post({
+  id: 2,
   title: 'Lee Pucker design. Leather botinki for handsome designers. Free shipping.',
   descBig: '',
   descLittle: '',
@@ -92,6 +95,7 @@ post({
 })
 
 post({
+  id: 3,
   title: 'Timesaving kitten to save months on development. Playful, cute, cheap!',
   descBig: 'Eligible for nothing :(',
   descLittle: 'Eligible for nothing :(',
@@ -110,6 +114,7 @@ post({
 })
 
 post({
+  id: 4,
   title: 'Plastic useless plugs and tubes for high-fidelity prototyping. Fit & Eat!',
   descBig: 'Wordwide shitting available Buyers protection possible!',
   descLittle: 'Wordwide shitting available Buyers protection possible!',
@@ -128,6 +133,7 @@ post({
 })
 
 post({
+  id: 5,
   title: 'Creativity stimulating lotion. Drink every morning to generate better ideas!',
   descBig: 'Wordwide shifting available Buyers protection possible!',
   descLittle: 'Wordwide shifting available Buyers protection possible!',
@@ -146,6 +152,7 @@ post({
 })
 
 post({
+  id: 6,
   title: 'Prototyping items to create a lot if useless things...',
   descBig: 'Showcasing onHovered state',
   descLittle: 'Showcasing onHovered state',
@@ -164,6 +171,7 @@ post({
 })
 
 post({
+  id: 7,
   title: 'Von SPRING',
   descBig: 'Wordwide shitting available Buyers protection possible!',
   descLittle: 'Wordwide shitting available Buyers protection possible!',
@@ -182,6 +190,7 @@ post({
 })
 
 post({
+  id: 8,
   title: 'Envelope, Stripes, Pencil and etc. Purchase this kit today and feel OKAY',
   descBig: 'Eligible for Shipping To Mars or somewhere else',
   descLittle: 'Eligible for Shipping To Mars or somewhere else',
@@ -200,6 +209,7 @@ post({
 })
 
 post({
+  id: 9,
   title: 'Professional teadrinking set for every designer and developer',
   descBig: 'Eligible for nothing :(',
   descLittle: 'Eligible for nothing :(',
@@ -218,6 +228,7 @@ post({
 })
 
 post({
+  id: 10,
   title: 'One string Bonsai description',
   descBig: 'Wordwide shifting available Buyers protection possible!',
   descLittle: 'Wordwide shifting available Buyers protection possible!',
@@ -236,13 +247,14 @@ post({
 })
 
 post({
-  title: 'Simply best item in town to shine bright with your Nine Inch Nails',
+  id: 11,
+  title: 'MakeUp',
   descBig: 'Eligible for Shipping To Mars or somewhere else',
   descLittle: 'Eligible for Shipping To Mars or somewhere else',
   img: '../img/items/item11.jpg',
-  priceCurrent: '$1.2',
-  pricePrevious: '$2',
-  rating: 4.3,
+  priceCurrent: '$20',
+  pricePrevious: '$25',
+  rating: 4.7,
   priceType: 'buyNow',
   deliveryFast: false,
   deliveryEconom: true,
@@ -254,13 +266,14 @@ post({
 })
 
 post({
-  title: 'MakeUp',
+  id: 12,
+  title: 'Simply best item in town to shine bright with your Nine Inch Nails',
   descBig: 'Eligible for Shipping To Mars or somewhere else',
   descLittle: 'Eligible for Shipping To Mars or somewhere else',
   img: '../img/items/item12.jpg',
-  priceCurrent: '$20',
-  pricePrevious: '$25',
-  rating: 4.7,
+  priceCurrent: '$1.2',
+  pricePrevious: '$2',
+  rating: 4.3,
   priceType: 'buyNow',
   deliveryFast: false,
   deliveryEconom: true,

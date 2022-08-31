@@ -100,7 +100,7 @@ export default class Items {
       const item = document.querySelector('.content .item');
       let cloneNode = item.cloneNode(true);
       const newPrice = cloneNode.querySelector('.current-price').textContent = `${obj[i].item.price.current}`
-      cloneNode.setAttribute('data-item-id', i);
+      cloneNode.setAttribute('data-item-id', obj[i].item.id);
       cloneNode.setAttribute('data-item-price', newPrice);
       //json
       cloneNode.querySelector('.title').textContent = obj[i].item.title;
