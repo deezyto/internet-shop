@@ -27,7 +27,8 @@ export default class Filters extends Items {
       if (e.target.getAttribute('data-type-filter-tab-option')) {
         const filterOption = e.target.getAttribute('data-type-filter-tab-option');
         const sortTab = document.querySelectorAll('.sort-items .sort .current-sort');
-        const sortTabArr = [sortTab[0].getAttribute('data-type-current-filter'), sortTab[1].getAttribute('data-type-current-filter')];
+        //const sortTabArr = [sortTab[0].getAttribute('data-type-current-filter'), sortTab[1].getAttribute('data-type-current-filter')];
+        const sortTabArr = document.querySelectorAll('.sort-items [data-type-current-filter]');
         switch (filterOption) {
           case 'show-all':
             this.getItems(this.createItem, 'show-all', sortTabArr);
@@ -35,8 +36,11 @@ export default class Filters extends Items {
           case 'auction':
             this.getItems(this.createItem, 'auction', sortTabArr);
             break;
+          case 'buy-now':
+            this.getItems(this.createItem, 'buy-now', sortTabArr);
+            break;
         }
-      }
+      } 
       if (e.target.getAttribute('data-type-filter-option')) {
         const filterOption = e.target.getAttribute('data-type-filter-option');
         const currentFilter = e.target.textContent;

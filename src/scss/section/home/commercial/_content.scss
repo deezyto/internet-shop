@@ -13,6 +13,16 @@
         border-radius: 8px;
         position: relative;
     }
+
+    .search-result {
+        padding: 20px;
+        color: rgba(0, 0, 0, .5);
+        font-size: 15px;
+        &.search-no-found {
+            padding-top: 75px;
+            text-align: center;
+        }
+    }
     .sort-items {
         display: flex;
         justify-content: flex-end;

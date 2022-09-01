@@ -64,7 +64,7 @@ export default class Items {
       if (type === 'all') {
         return obj;
       } else {
-        const filter = obj.filter(elem => elem.item.priceType === type);
+        const filter = obj.filter(elem => elem.item.price.type === type);
         return filter;
       } 
     }
@@ -88,46 +88,111 @@ export default class Items {
     const checkCurrentTypeSort = (callback, currentType) => {
       callback();
       if (currentType === 'delivery-free') {
-        sortDelivery('free');
+        //sortDelivery('free');
         obj = sortDelivery('free');
       } else if (currentType === 'delivery-fast') {
-        sortDelivery('fast');
+        //sortDelivery('fast');
         obj = sortDelivery('fast');
       } else if (currentType === 'delivery-econom') {
-        sortDelivery('econom');
+        //sortDelivery('econom');
         obj = sortDelivery('econom');
       }
+    }
+
+    const checkCurrentTypeSortAndDelivery = () => {
+      if (currentType[1] === 'delivery-free') {
+        obj = sortDelivery('free');
+      } else if (currentType[1] === 'delivery-fast') {
+        obj = sortDelivery('fast');
+      } else if (currentType[1] === 'delivery-econom') {
+        obj = sortDelivery('econom');
+      } else if (currentType[1] === 'delivery-all') {
+        obj = obj;
+      }
+
+      if (currentType[0] === 'high') {
+        sortHigh();
+      } else if (currentType[0] === 'low') {
+        sortLow();
+      } else if (currentType[0] === 'feature') {
+        sortFeature();
+      } else if (currentType[0] === 'new') {
+        sortNew();
+      } else if (currentType[0] === 'review') {
+        sortReview();
+      }
+
+      return obj;
+      
     }
 
     console.log(typeSort, 'type');
     removeItems();
     if (typeSort === 'low') {
+      console.log('low')
       checkCurrentTypeSort(sortLow, currentType[1]);
     } else if (typeSort === 'high') {
+      console.log('high')
       checkCurrentTypeSort(sortHigh, currentType[1]);
     } else if (typeSort === 'feature') {
+      console.log('feature')
       checkCurrentTypeSort(sortFeature, currentType[1]);
     } else if (typeSort === 'new') {
+      console.log('new')
       checkCurrentTypeSort(sortNew, currentType[1]);
     } else if (typeSort === 'review') {
+      console.log('review')
       checkCurrentTypeSort(sortReview, currentType[1]);
     } else if (typeSort === 'auction') {
-      //checkCurrentTypeSort(sortNew);
-      //checkCurrentTypeSort()
-      checkCurrentTypeDelivery();
-      checkCurrentTypeSort();
-      sortTypeSale();
+      console.log('auction')
+      obj = sortTypeSale('auction');
+      obj = checkCurrentTypeSortAndDelivery();
+    } else if (typeSort === 'show-all') {
+      console.log('all')
+      obj = sortTypeSale('all');
+      obj = checkCurrentTypeSortAndDelivery();
+    } else if (typeSort === 'buy-now') {
+      console.log('buy-now')
+      obj = sortTypeSale('buyNow');
+      obj = checkCurrentTypeSortAndDelivery();
     } else if (typeSort === 'delivery-free') {
+      console.log('delivery-free')
       checkCurrentTypeDelivery('free', currentType[0]);
     } else if (typeSort === 'delivery-fast') {
+      console.log('delivery-fast')
       checkCurrentTypeDelivery('fast', currentType[0]);
     } else if (typeSort === 'delivery-econom') {
+      console.log('delivery-econom')
       checkCurrentTypeDelivery('econom', currentType[0]);
     } else if (typeSort === 'delivery-all') {
+      console.log('delivery-all')
       checkCurrentTypeDelivery('all', currentType[0]);
     }
 
+    
+
+    console.log(obj, 'items')
+    const item = document.querySelector('.content .item');
+    const result = document.querySelector('.content .search-result');
+    if (obj.length < 1) {
+      //const result = document.querySelector('.content .search-result');
+      result.textContent = 'No items found for Your filters. Try again with another filters';
+      result.classList.add('search-no-found');
+      item.style.display = 'none';
+    } else {
+      result.classList.remove('search-no-found');
+      let resultText;
+      if (obj.length === 1) {
+        resultText = ' result'
+      } else {
+        resultText = ' results'
+      }
+      result.textContent = obj.length + resultText;
+      item.style.display = '';
+    }
+
     for (let i = 0; i < obj.length; i++) {
+      console.log('for')
       const item = document.querySelector('.content .item');
       let cloneNode = item.cloneNode(true);
       const newPrice = cloneNode.querySelector('.current-price').textContent = `${obj[i].item.price.current}`
@@ -135,6 +200,7 @@ export default class Items {
       cloneNode.setAttribute('data-item-price', newPrice);
       cloneNode.setAttribute('data-item', obj[i].item.dateCreate);
       cloneNode.setAttribute('data-item-review', obj[i].item.rating);
+      cloneNode.setAttribute('data-item-type-sale', obj[i].item.price.type);
       //json
       cloneNode.querySelector('.title').textContent = obj[i].item.title;
       cloneNode.querySelector('.desc').textContent = obj[i].item.big;
@@ -143,10 +209,11 @@ export default class Items {
       cloneNode.querySelector('.info .number').textContent = obj[i].item.rating;
       
       item.parentNode.append(cloneNode);
-      if (i === 1) {
+      if (i === 1 || obj.length === 1) {
         document.querySelectorAll('.content .item')[0].remove();
       }
     }
+    
     new Cart({buttonOpenCart: '.user-open-cart', selectorModal: '.cart .overlay'}).render();
   }
 
