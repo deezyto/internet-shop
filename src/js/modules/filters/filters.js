@@ -9,14 +9,24 @@ export default class Filters extends Items {
     sidebar.addEventListener('click', (e) => {
       const filter = e.target.parentNode.parentNode.querySelectorAll('[data-type="filter"]');
       const input = sidebar.querySelectorAll('.sidebar-filter-option');
-      console.log(input)
-      console.log(e.target.querySelector('.sidebar-filter-option input'))
+      const startFilters = () => {
+        const currentFilters = {};
+        console.log(document.querySelectorAll('.sidebar-filter-option input'), 'value')
+        document.querySelectorAll('.sidebar-filter-option input').forEach(item => {
+          currentFilters[item.name] = item.checked;
+        });
+        this.getItems(this.createItem, currentFilters);
+      }
+
+      
       if (e.target.classList.contains('sidebar-filter-option')) {
         let check = e.target.querySelector('input').checked;
         if (check) {
           e.target.querySelector('input').checked = false;
+          startFilters();
         } else {
-          e.target.querySelector('input').checked = true
+          e.target.querySelector('input').checked = true;
+          startFilters();
         }
       }
 
@@ -30,16 +40,6 @@ export default class Filters extends Items {
         filter[0].parentNode.classList.remove('hide');
         filter[1].parentNode.classList.remove('active');
       }
-
-      const startFilters = () => {
-        const currentFilters = [];
-        document.querySelectorAll('.sidebar-filter-option input').forEach(item => {
-          currentFilters.push(item.getAttribute('data-type-current-filter'));
-        });
-        this.getItems(this.createItem, currentFilters);
-      }
-
-      startFilters();
 
 
 

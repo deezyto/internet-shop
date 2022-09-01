@@ -69,6 +69,16 @@ export default class Items {
       } 
     }
 
+    const sortTypeCheckBox = (type = 'all') => {
+      console.log(type, 'yearManufacturing')
+      if (type === 'all') {
+        return obj;
+      } else {
+        const filter = obj.filter(elem => elem.item.yearManufacturing === type);
+        return filter;
+      } 
+    }
+
     const checkCurrentTypeSort = () => {
       const deliverySort = () => {
         if (currentType[1] === 'delivery-free') {
@@ -107,10 +117,19 @@ export default class Items {
           obj = sortTypeSale('all');
         }
       }
+      const typeCheckBoxSort = () => {
+
+        for (let item in currentType) {
+          if (currentType[item] === true) {
+            obj = sortTypeCheckBox(item);
+          }
+        }
+      }
 
       deliverySort();
       typeSort();
       typeSaleSort();
+      typeCheckBoxSort();
 
       return obj;
     }
