@@ -5,8 +5,22 @@ export default class Filters extends Items {
   }
 
   checkBoxFilter() {
-    document.querySelector('.sidebar').addEventListener('click', (e) => {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.addEventListener('click', (e) => {
       const filter = e.target.parentNode.parentNode.querySelectorAll('[data-type="filter"]');
+      const input = sidebar.querySelectorAll('.sidebar-filter-option');
+      console.log(input)
+      console.log(e.target.querySelector('.sidebar-filter-option input'))
+      if (e.target.classList.contains('sidebar-filter-option')) {
+        let check = e.target.querySelector('input').checked;
+        if (check) {
+          e.target.querySelector('input').checked = false;
+        } else {
+          e.target.querySelector('input').checked = true
+        }
+      }
+
+
       if (e.target === filter[0]) {
         e.target.parentNode.parentNode.classList.add('active');
         e.target.parentNode.classList.add('hide');
@@ -16,6 +30,19 @@ export default class Filters extends Items {
         filter[0].parentNode.classList.remove('hide');
         filter[1].parentNode.classList.remove('active');
       }
+
+      const startFilters = () => {
+        const currentFilters = [];
+        document.querySelectorAll('.sidebar-filter-option input').forEach(item => {
+          currentFilters.push(item.getAttribute('data-type-current-filter'));
+        });
+        this.getItems(this.createItem, currentFilters);
+      }
+
+      startFilters();
+
+
+
     });
   }
 
