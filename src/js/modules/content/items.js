@@ -9,16 +9,16 @@ export default class Items {
     this.obj = item;
   }
 
-  getItems(callback, typeSort = 'low', currentType = '') {
+  getItems(callback, currentType = '') {
     new Resources('http://localhost:3020/items').getResource()
     .then(res => {
       this.obj = res;
       this.postObj(res);
-      callback(res, typeSort, currentType);
+      callback(res, currentType);
     });
   }
 
-  createItem(obj, typeSort = 'low', currentType = '') {
+  createItem(obj, currentType = '') {
 
     const removeItems = () => {
       const items = document.querySelectorAll('.content .item');
@@ -115,7 +115,7 @@ export default class Items {
       return obj;
     }
 
-    console.log(typeSort, 'type');
+
     removeItems();
     checkCurrentTypeSort();
 
