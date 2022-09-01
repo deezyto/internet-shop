@@ -42,7 +42,8 @@
         }
 
         .item {
-            display: flex;
+            display: grid;
+            grid-template-columns: 35px 150px 200px 200px 100px 100px 100px;
             justify-content: space-between;
             align-items: center;
             column-gap: 15px;
@@ -51,15 +52,11 @@
                 max-width: 150px;
                 max-height: 150px;
             }
+            .info {
+                flex-direction: column;
+            }
         }
-        .price, .desc, .info, .title {
-            display: inline-block;
-            min-width: 100px;
-        }
-        .title {
-            width: 30%;
-      
-        }
+
         .count {
             order: 5;
             display: flex;
@@ -84,6 +81,7 @@
         }
         .price {
             order: 4;
+            flex-direction: column;
         }
     }
 
@@ -95,6 +93,7 @@
         left: 0;
         right: 0;
         margin: auto;
+        overflow: hidden;
     }
 
     .check {

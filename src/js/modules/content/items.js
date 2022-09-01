@@ -43,6 +43,14 @@ export default class Items {
       obj = filter;
     }
 
+    const sortNew = () => {
+      obj.sort((a, b) => +a.item.dateCreate.replace(/[^0-9.]/g, '') < +b.item.dateCreate.replace(/[^0-9.]/g, '') ? 1 : -1);
+    }
+
+    const sortReview = () => {
+      obj.sort((a, b) => a.item.rating < b.item.rating ? 1 : -1);
+    }
+
     const sortDelivery = (type = 'all') => {
       if (type === 'all') {
         return obj;
@@ -52,7 +60,16 @@ export default class Items {
       } 
     }
 
-    const checkCurrentTypeDelivery = (typeSort) => {
+    const sortTypeSale = (type = 'all') => {
+      if (type === 'all') {
+        return obj;
+      } else {
+        const filter = obj.filter(elem => elem.item.priceType === type);
+        return filter;
+      } 
+    }
+
+    const checkCurrentTypeDelivery = (typeSort, currentType) => {
       sortDelivery(typeSort);
       if (currentType === 'high') {
         sortHigh();
@@ -60,11 +77,15 @@ export default class Items {
         sortLow();
       } else if (currentType === 'feature') {
         sortFeature();
+      } else if (currentType === 'new') {
+        sortNew();
+      } else if (currentType === 'review') {
+        sortReview();
       }
       obj = sortDelivery(typeSort);
     }
 
-    const checkCurrentTypeSort = (callback) => {
+    const checkCurrentTypeSort = (callback, currentType) => {
       callback();
       if (currentType === 'delivery-free') {
         sortDelivery('free');
@@ -81,19 +102,29 @@ export default class Items {
     console.log(typeSort, 'type');
     removeItems();
     if (typeSort === 'low') {
-      checkCurrentTypeSort(sortLow);
+      checkCurrentTypeSort(sortLow, currentType[1]);
     } else if (typeSort === 'high') {
-      checkCurrentTypeSort(sortHigh);
+      checkCurrentTypeSort(sortHigh, currentType[1]);
     } else if (typeSort === 'feature') {
-      checkCurrentTypeSort(sortFeature);
+      checkCurrentTypeSort(sortFeature, currentType[1]);
+    } else if (typeSort === 'new') {
+      checkCurrentTypeSort(sortNew, currentType[1]);
+    } else if (typeSort === 'review') {
+      checkCurrentTypeSort(sortReview, currentType[1]);
+    } else if (typeSort === 'auction') {
+      //checkCurrentTypeSort(sortNew);
+      //checkCurrentTypeSort()
+      checkCurrentTypeDelivery();
+      checkCurrentTypeSort();
+      sortTypeSale();
     } else if (typeSort === 'delivery-free') {
-      checkCurrentTypeDelivery('free');
+      checkCurrentTypeDelivery('free', currentType[0]);
     } else if (typeSort === 'delivery-fast') {
-      checkCurrentTypeDelivery('fast');
+      checkCurrentTypeDelivery('fast', currentType[0]);
     } else if (typeSort === 'delivery-econom') {
-      checkCurrentTypeDelivery('econom');
+      checkCurrentTypeDelivery('econom', currentType[0]);
     } else if (typeSort === 'delivery-all') {
-      checkCurrentTypeDelivery('all');
+      checkCurrentTypeDelivery('all', currentType[0]);
     }
 
     for (let i = 0; i < obj.length; i++) {
@@ -102,6 +133,8 @@ export default class Items {
       const newPrice = cloneNode.querySelector('.current-price').textContent = `${obj[i].item.price.current}`
       cloneNode.setAttribute('data-item-id', obj[i].item.id);
       cloneNode.setAttribute('data-item-price', newPrice);
+      cloneNode.setAttribute('data-item', obj[i].item.dateCreate);
+      cloneNode.setAttribute('data-item-review', obj[i].item.rating);
       //json
       cloneNode.querySelector('.title').textContent = obj[i].item.title;
       cloneNode.querySelector('.desc').textContent = obj[i].item.big;
