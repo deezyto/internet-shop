@@ -28,7 +28,12 @@ export default class Filters extends Items {
         const filterOption = e.target.getAttribute('data-type-filter-tab-option');
         const sortTab = document.querySelectorAll('.sort-items .sort .current-sort');
         //const sortTabArr = [sortTab[0].getAttribute('data-type-current-filter'), sortTab[1].getAttribute('data-type-current-filter')];
-        const sortTabArr = document.querySelectorAll('.sort-items [data-type-current-filter]');
+        e.target.parentNode.setAttribute('data-type-current-filter', filterOption);
+        const sortTabArr = [];
+        document.querySelectorAll('.sort-items [data-type-current-filter]').forEach(item => {
+          sortTabArr.push(item.getAttribute('data-type-current-filter'));
+        });
+        
         switch (filterOption) {
           case 'show-all':
             this.getItems(this.createItem, 'show-all', sortTabArr);
@@ -45,7 +50,13 @@ export default class Filters extends Items {
         const filterOption = e.target.getAttribute('data-type-filter-option');
         const currentFilter = e.target.textContent;
         const sortTab = document.querySelectorAll('.sort-items .sort .current-sort');
-        const sortTabArr = [sortTab[0].getAttribute('data-type-current-filter'), sortTab[1].getAttribute('data-type-current-filter')];
+        //const sortTabArr = [sortTab[0].getAttribute('data-type-current-filter'), sortTab[1].getAttribute('data-type-current-filter')];
+        e.target.parentNode.parentNode.parentNode.querySelector('.current-sort').setAttribute('data-type-current-filter', filterOption);
+        e.target.parentNode.parentNode.parentNode.querySelector('.current-sort').textContent = currentFilter;
+        const sortTabArr = [];
+        document.querySelectorAll('.sort-items [data-type-current-filter]').forEach(item => {
+          sortTabArr.push(item.getAttribute('data-type-current-filter'));
+        });
         console.log('click')
         switch (filterOption) {
           case 'high':
@@ -76,8 +87,7 @@ export default class Filters extends Items {
             this.getItems(this.createItem, 'delivery-all', sortTabArr);
             break;
         }
-        e.target.parentNode.parentNode.parentNode.querySelector('.current-sort').setAttribute('data-type-current-filter', filterOption);
-        e.target.parentNode.parentNode.parentNode.querySelector('.current-sort').textContent = currentFilter;
+        
         e.target.parentNode.parentNode.parentNode.classList.toggle('active');
       }
 
