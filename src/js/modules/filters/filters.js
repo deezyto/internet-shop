@@ -23,10 +23,10 @@ export default class Filters extends Items {
         let check = e.target.querySelector('input').checked;
         if (check) {
           e.target.querySelector('input').checked = false;
-          startFilters();
+          //startFilters();
         } else {
           e.target.querySelector('input').checked = true;
-          startFilters();
+          //startFilters();
         }
       }
 
@@ -69,6 +69,7 @@ export default class Filters extends Items {
         document.querySelectorAll('.sort-items [data-type-current-filter]').forEach(item => {
           currentFilters.push(item.getAttribute('data-type-current-filter'));
         });
+
         this.getItems(this.createItem, currentFilters);
       }
 
